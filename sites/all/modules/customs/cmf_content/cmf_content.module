@@ -1,0 +1,527 @@
+﻿<?php
+/******* Function for the cache desible  ********/
+function cmf_security_suit_nocache(){
+  header("Expires: Sun, 01 Jan 2012 06:00:00 GMT");
+  header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+  header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+  header("Cache-Control: post-check=0, pre-check=0", false);
+  header("Cache-Control = 'private'");
+  header("Pragma: no-cache");
+}
+
+function cmf_security_suit_cache(){
+  if(arg(0) != 'user') {
+    $ExpireTime = 6*3600;
+    header('Expires: '.gmdate('D, d M Y H:i:s', time()+$ExpireTime).' GMT');
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header("Cache-Control: public, max-age=" . $ExpireTime);
+  }
+  header("Pragma: public");
+}
+
+
+function cmf_content_init(){
+	global $base_url, $user;
+	global $theme;
+	$themePath = drupal_get_path('theme', $theme);
+	$modulePath = drupal_get_path('module', 'cmf_content');
+	
+	drupal_add_js('var base_url ="'.$base_url.'"; var themePath = "'.$themePath.'"; var modulePath = "'.$modulePath.'";', 'inline');
+	drupal_add_css(drupal_get_path('module', 'cmf_content') . '/assets/css/base.css');
+	drupal_add_css(drupal_get_path('module', 'cmf_content') . '/assets/css/font.css');
+	drupal_add_css(drupal_get_path('module', 'cmf_content') . '/assets/css/flexslider.css'); 
+	drupal_add_css(drupal_get_path('module', 'cmf_content') . '/assets/css/base-responsive.css');
+	drupal_add_css(drupal_get_path('module', 'cmf_content') . '/assets/css/font-awesome.min.css');
+	
+	#...
+	drupal_add_js(drupal_get_path('module', 'cmf_content') . '/assets/js/font-size.js');
+	drupal_add_js(drupal_get_path('module', 'cmf_content') . '/assets/js/framework.js');
+	drupal_add_js(drupal_get_path('module', 'cmf_content') . '/assets/js/swithcer.js');
+	#...
+    if($user->uid){
+    	cmf_security_suit_nocache();
+  	}else{
+    	cmf_security_suit_cache();
+  	}
+  
+
+}
+
+
+function cmf_content_menu(){
+	$items['admin/config/system/site-hindi-name'] = array(
+		'title' => 'CMF Site Settings',
+		'page callback' => '_add_site_hindi_name',
+		'access callback' => 'cmf_content_access',
+		'type' => MENU_NORMAL_ITEM,
+	);
+	return $items;
+}
+
+
+/**
+ * Determine whether the user has permission to use menu_block module.
+ */
+function cmf_content_access($account = NULL) {
+	return user_access('administer blocks', $account) && user_access('administer menu', $account);
+}
+
+function _add_site_hindi_name(){
+	return drupal_get_form('hindi_sitename_form');
+}
+
+function hindi_sitename_form($form, &$form_state){
+	$form = array();
+	if(variable_get('footer_hindi_sitename')!= NULL){
+		$default_sitename = variable_get('footer_hindi_sitename');	
+	}
+	if(variable_get('header_hindi_sitename')!= NULL){
+		$header_sitename = variable_get('header_hindi_sitename');	
+	}
+	if(variable_get('header_eng_sitename')!= NULL){
+		$header_eng_sitename = variable_get('header_eng_sitename');	
+	}
+	if(variable_get('header_hindi_goi_text')!= NULL){
+		$header_hindi_goi_text = variable_get('header_hindi_goi_text');	
+	}
+	if(variable_get('header_eng_goi_text')!= NULL){
+		$header_eng_goi_text = variable_get('header_eng_goi_text');	
+	}
+	if(variable_get('site_meta_keywords')!= NULL){
+		$site_meta_keywords = variable_get('site_meta_keywords');	
+	}
+	if(variable_get('site_meta_description')!= NULL){
+		$site_meta_description = variable_get('site_meta_description');	
+	}
+	if(variable_get('facebook_url')!= NULL){
+		$facebook_url = variable_get('facebook_url');	
+	}
+	if(variable_get('twitter_url')!= NULL){
+		$twitter_url = variable_get('twitter_url');	
+	}
+	if(variable_get('youtube_url')!= NULL){
+		$youtube_url = variable_get('youtube_url');	
+	}
+	//.....date-2-15-2015....................
+	if(variable_get('header_hindi_sitename_url')!= NULL){
+		$header_sitename_url = variable_get('header_hindi_sitename_url');	
+	}
+	if(variable_get('header_eng_sitename_url')!= NULL){
+		$header_eng_url = variable_get('header_eng_sitename_url');	
+	}
+	if(variable_get('header_hindi_goi_text_url')!= NULL){
+		$goi_hindi_url = variable_get('header_hindi_goi_text_url');	
+	}
+	if(variable_get('header_eng_goi_text_url')!= NULL){
+		$goi_eng_url = variable_get('header_eng_goi_text_url');	
+	}
+	//......................................
+	$form['footer_hindi_sitename'] = array(
+		'#title' => t('Enter Sitename for Footer Section'),
+		'#type' => 'textfield',
+		'#description' => t('Please enter the Hindi sitename of your website.'),
+		'#required' => false,
+		'#default_value' => @$default_sitename,
+	);
+	$form['header_hindi_sitename'] = array(
+		'#title' => t('Enter Hindi Header Title for Minister'),
+		'#type' => 'textfield',
+		'#description' => t('Please enter the Hindi sitename for Header Section of your website.'),
+		'#required' => false,
+		'#default_value' => @$header_sitename,
+	);
+    $form['header_hindi_sitename_url'] = array(
+		'#title' => t('Enter Hindi Header URL for Minister '),
+		'#type' => 'textfield',
+		'#description' => t('Please enter the URl of Hindi sitename for Header Section of your website.'),
+		'#required' => false,
+		'#default_value' => @$header_sitename_url,
+	);
+
+
+	$form['header_eng_sitename'] = array(
+		'#title' => t('Enter English Header Title for Minister '),
+		'#type' => 'textfield',
+		'#description' => t('Please enter the English sitename for Header Section of your website.'),
+		'#required' => false,
+		'#default_value' => @$header_eng_sitename,
+	);
+	$form['header_eng_sitename_url'] = array(
+		'#title' => t('Enter English Header URL for Minister'),
+		'#type' => 'textfield',
+		'#description' => t('Please enter the URL of English sitename for Header Section of your website.'),
+		'#required' => false,
+		'#default_value' => @$header_eng_url,
+	);
+	$form['header_hindi_goi_text'] = array(
+		'#title' => t('Enter Hindi Header Title For Govt '),
+		'#type' => 'textfield',
+		'#description' => t('Please enter the Hindi GOI  for Header Section of your website.'),
+		'#required' => false,
+		'#default_value' => @$header_hindi_goi_text,
+	);
+	$form['header_hindi_goi_text_url'] = array(
+		'#title' => t('Enter Hindi Header URL For Govt'),
+		'#type' => 'textfield',
+		'#description' => t('Please enter the Hindi GOI URL for Header Section of your website.'),
+		'#required' => false,
+		'#default_value' => @$goi_hindi_url,
+	);
+	$form['header_eng_goi_text'] = array(
+		'#title' => t('Enter English Header Title For Govt'),
+		'#type' => 'textfield',
+		'#description' => t('Please enter the English GOI  for Header Section of your website.'),
+		'#required' => false,
+		'#default_value' => @$header_eng_goi_text,
+	);
+	$form['header_eng_goi_text_url'] = array(
+		'#title' => t('Enter English Header URL For Govt'),
+		'#type' => 'textfield',
+		'#description' => t('Please enter the English GOI URL for Header Section of your website.'),
+		'#required' => false,
+		'#default_value' => @$goi_eng_url,
+	);
+	
+	$form['site_meta_keywords'] = array(
+		'#title' => t('Enter your Site Meta Keywords'),
+		'#type' => 'textfield',
+		'#description' => t('Enter your Site Meta Keywords.'),
+		'#required' => false,
+		'#default_value' => @$site_meta_keywords,
+	);
+	$form['site_meta_description'] = array(
+		'#title' => t('Enter your Site Meta Description'),
+		'#type' => 'textfield',
+		'#description' => t('Enter your Site Meta Description.'),
+		'#required' => false,
+		'#default_value' => @$site_meta_description,
+	);
+	
+	$form['facebook_url'] = array(
+		'#title' => t('Enter your Facebook Page'),
+		'#type' => 'textfield',
+		'#description' => t('Enter your Facebook Page.'),
+		'#required' => false,
+		'#default_value' => @$facebook_url,
+	);
+	$form['twitter_url'] = array(
+		'#title' => t('Enter your Twitter Page'),
+		'#type' => 'textfield',
+		'#description' => t('Enter your Facebook Page.'),
+		'#required' => false,
+		'#default_value' => @$twitter_url,
+	);
+	$form['youtube_url'] = array(
+		'#title' => t('Enter your Youtube Page'),
+		'#type' => 'textfield',
+		'#description' => t('Enter your Youtube Page.'),
+		'#required' => false,
+		'#default_value' => $youtube_url,
+	);
+	$form['submit_button'] = array(
+		'#type' => 'submit',
+		'#value' => t('Submit'),
+	);
+	return $form;
+}
+function hindi_sitename_form_submit($form, &$form_state){
+	global $base_url;
+	variable_set('footer_hindi_sitename', $form_state['input']['footer_hindi_sitename']);
+	variable_set('header_hindi_sitename', $form_state['input']['header_hindi_sitename']);
+    //..........................
+    variable_set('header_hindi_sitename_url', $form_state['input']['header_hindi_sitename_url']);
+    //..................
+	variable_set('header_eng_sitename', $form_state['input']['header_eng_sitename']);
+    variable_set('header_eng_sitename_url', $form_state['input']['header_eng_sitename_url']);
+
+	variable_set('header_hindi_goi_text', $form_state['input']['header_hindi_goi_text']);
+	variable_set('header_hindi_goi_text_url', $form_state['input']['header_hindi_goi_text_url']);
+
+	variable_set('header_eng_goi_text', $form_state['input']['header_eng_goi_text']);
+	variable_set('header_eng_goi_text_url', $form_state['input']['header_eng_goi_text_url']);
+
+	variable_set('site_meta_keywords', $form_state['input']['site_meta_keywords']);
+	variable_set('site_meta_description', $form_state['input']['site_meta_description']);
+	variable_set('facebook_url', $form_state['input']['facebook_url']);
+	variable_set('twitter_url', $form_state['input']['twitter_url']);
+	variable_set('youtube_url', $form_state['input']['youtube_url']);
+    drupal_set_message(t('Your Hindi Sitename has been saved.'));
+	drupal_goto($base_url.'/admin/config/system/site-hindi-name');
+}
+
+/********Block to create header and footer************/
+function cmf_content_block_info() {
+	$blocks = array();
+	$blocks['header_region_block'] = array(
+		'info' => t('Header Region Block'),
+	);
+	$blocks['footer_region_block'] = array(
+		'info' => t('Footer Region Block'),
+	);
+	return $blocks;
+}
+function cmf_content_block_view($delta = ''){
+	$block = array();
+	switch ($delta) {
+	case 'header_region_block':
+		$block['subject'] = '';
+		$block['content'] = _header_block_data();
+		break;
+	case 'footer_region_block':
+		$block['subject'] = '';
+		$block['content'] = _footer_block_data();
+		break;
+	}
+  return $block;
+}
+
+
+function _header_block_data(){
+	global $base_url, $language, $user, $theme;
+	$url_sub = '';
+	if( $language->language == 'hi'){
+		$url_sub = '/hi';
+	}
+	$output = '';
+	 # date 2-16-2016
+     # code for check javascript disable from javascript
+         
+     $output.='<noscript class="no_scr">"JavaScript is a standard programming language that is included to provide interactive features, Kindly enable Javascript in your browser. For details visit help page"
+     </noscript>';
+     
+         
+    #... end code for check javascript disable from browser
+	#date  2/15/16....
+
+     if(variable_get('header_hindi_sitename')!= NULL){
+		$head_hindi_stname = variable_get('header_hindi_sitename');	
+	}
+	if(variable_get('header_eng_sitename')!= NULL){
+		$head_eng_stname = variable_get('header_eng_sitename');	
+	}
+	if(variable_get('header_hindi_goi_text')!= NULL){
+		$head_hindi_goi = variable_get('header_hindi_goi_text');	
+	}
+	if(variable_get('header_eng_goi_text')!= NULL){
+		$Head_eng_goi = variable_get('header_eng_goi_text');	
+	}
+
+	if(variable_get('header_hindi_sitename_url')!= NULL){
+		$header_sitename_url = variable_get('header_hindi_sitename_url');	
+	}
+	if(variable_get('header_eng_sitename_url')!= NULL){
+		$header_eng_url = variable_get('header_eng_sitename_url');	
+	}
+	if(variable_get('header_hindi_goi_text_url')!= NULL){
+		$goi_hindi_url = variable_get('header_hindi_goi_text_url');	
+	}
+	if(variable_get('header_eng_goi_text_url')!= NULL){
+		$goi_eng_url = variable_get('header_eng_goi_text_url');	
+	}
+
+	#..................
+	
+	
+	
+	$str = '';
+	if(variable_get('facebook_url')!= NULL){
+		$str .= ' <li><a target="_blank" title="'.t('External site that opens in a new window').'" href="'.variable_get('facebook_url').'"><img alt="Facebook" src="'.$base_url.'/'.drupal_get_path("module", "cmf_content").'/assets/images/ico-facebook.png"></a></li>';	
+	}
+	if(variable_get('twitter_url')!= NULL){
+		$str .= '<li><a target="_blank" title="'.t('External site that opens in a new window').'" href="'.variable_get('twitter_url').'"><img alt="Twitter, External Link that opens in a new window" src="'.$base_url.'/'.drupal_get_path("module", "cmf_content").'/assets/images/ico-twitter.png"></a></li>';	
+	}
+	if(variable_get('youtube_url')!= NULL){
+		$str .='<li><a target="_blank" title="'.t('External site that opens in a new window').'" href="'.variable_get('youtube_url').'"><img alt="youtube, External Link that opens in a new window" src="'.$base_url.'/'.drupal_get_path("module", "cmf_content").'/assets/images/ico-youtube.png"></a></li>';
+	}
+	if($str != ''){
+		$str = '<li class="ico-social"><a href="javascript:void(0);" id="toggleSocial" title="'.t('Social Medias').'"></a>
+                <ul>'.$str.'</ul>
+                </li>';
+	}
+	
+	
+	 
+     $output.='<div class="wrapper common-wrapper">
+  <div class="container common-container">
+	<div class="container">
+      <div class="common-left clearfix">
+          <ul>
+              <li class="gov-india">';
+			   
+             if(@$goi_hindi_url != NULL) {
+				$output.='<a target="_blank" href="'.@$goi_hindi_url.'" title="'.@$head_hindi_goi.' ( बाहरी वेबसाइट जो एक नई विंडो में खुलती है)"><span>'.@$head_hindi_goi.'</span></a>';
+             }else{
+				if(@$head_hindi_goi != NULL){
+					$output.='<span>'.@$head_hindi_goi.'</span>';
+				}				
+            }
+			if(@$head_eng_stname==NULL && @$head_hindi_stname==NULL) {
+				$output.= '</li><li class="ministry">';
+			}
+            if(@$goi_eng_url!=NULL) {
+				$output.='<a target="_blank" href="'.@$goi_eng_url.'" title="'.@$Head_eng_goi.',External Link that opens in a new window"><span>'.@$Head_eng_goi.'</span></a>';
+            } else{
+				if(@$Head_eng_goi != NULL){
+					$output.='<span>'.@$Head_eng_goi.'</span>';
+				}
+            }
+
+              
+
+		if(@$head_eng_stname!=NULL || @$head_hindi_stname!=NULL) {
+				$output.= '</li><li class="ministry">';
+			}
+        if(@$header_sitename_url!=NULL) {
+			$output.='<a target="_blank" href="'.@$header_sitename_url.'" title="'.@$head_hindi_stname.' (बाहरी वेबसाइट जो एक नई विंडो में खुलती है)"><span>'.@$head_hindi_stname.'</span></a>';	
+        } else{
+			if(@$head_hindi_stname != NULL){
+				$output.='<span>'.@$head_hindi_stname.'</span>';
+			}
+        }
+        if(@$header_eng_url!=NULL) {
+			$output.='<a target="_blank" href="'.@$header_eng_url.'" title="'.@$head_eng_stname.',External Link that opens in a new window"><span>'.@$head_eng_stname.'</span></a>';	
+        } else{
+			if(@$head_eng_stname != NULL){
+				$output.='<span>'.@$head_eng_stname.'</span>';
+			}
+        }
+        
+        $output.='</li></ul>';
+       
+        
+        $output.='
+
+        </div>
+        <div class="common-right clearfix">
+          <ul id="header-nav">
+              <li class="ico-skip"><a href="#skipCont" title="'.t('Skip to main content').'"></a></li>
+<li class="ico-accessibility"><a href="javascript:void(0);" id="toggleAccessibility" title="'.t('Accessibility Dropdown').'"></a>
+                  <ul>
+                     <li> <a onclick="set_font_size(\'increase\')" title="'.t('Increase font size').'" href="javascript:void(0);">A<sup>+</sup></a> </li>
+                        <li> <a onclick="set_font_size()" title="'.t('Reset font size').'" href="javascript:void(0);">A<sup>&nbsp;</sup></a> </li>
+                        <li> <a onclick="set_font_size(\'decrease\')" title="'.t('Decrease font size').'" href="javascript:void(0);">A<sup>-</sup></a> </li>
+        <li> <a href="javascript:void(0);" class="high-contrast dark" title="'.t('High Contrast').'">A</a> </li>
+       <li> <a href="javascript:void(0);" class="high-contrast light" title="'.t('Normal Contrast').'" style="display: none;">A</a> </li>
+                     
+                    </ul>
+                </li>
+                 '.$str;
+				$searh_array = explode("/",current_path());
+				if(trim(current_path()) != 'goisearch' && $searh_array[0] != 'search'){
+					$output.=' <li class="ico-site-search"><a href="javascript:void(0);" id="toggleSearch" title="'.t('Site Search').'"></a>
+					  <div class="search-drop">
+								';
+								if (module_exists('goisearch')) { 
+									$block = module_invoke('goisearch', 'block_view', 'goisearch_box');
+									$output.=render($block['content']);
+								}else{ 
+									$block = module_invoke('search', 'block_view', 'form');
+									$output.=render($block['content']);
+								}
+									
+							$output.='</div>
+					</li>';
+				}
+                if(module_exists('cmf_sitemap')) { 
+					 $output.=' <li class="ico-sitemap"><a href="'.$base_url.$url_sub.'/site-map" title="'.t('Sitemap').'"></a></li>';
+				}else{ 
+					// $output.=' <li class="ico-sitemap"><a href="'.$base_url.$url_sub.'/sitemap" title="'.t('Sitemap').'"></a></li>';
+				}
+                $output.=' <li class="hindi">'.cmf_utility_translate_link().'</li>
+            </ul>
+        </div>
+    </div>
+</div>';
+return $output;
+}
+
+function _footer_block_data(){
+	global $base_url, $language, $user;
+	//$block = module_invoke('gtranslate', 'block_view', 'gtranslate');
+	$site_name = variable_get('site_name');
+	if(drupal_is_front_page()){ 
+		$date =  get_site_last_update();
+	}else{
+		$date =  get_node_last_update();
+	}
+	 
+	 $output = '';
+     $output.='<footer class="wrapper footer-wrapper">
+	<div class="footer-top-wrapper">
+    	<div class="container footer-top-container">';
+                $block = module_invoke('menu', 'block_view', 'menu-footer-menu');
+                $output.=render($block['content']);
+        $output.='</div>
+    </div>
+    <div class="footer-bottom-wrapper">
+    	<div class="container footer-bottom-container">
+        	<div class="footer-content clearfix ">';
+			if (module_exists('gtranslate')) { 
+				$block = module_invoke('gtranslate', 'block_view', 'gtranslate');
+				$output.='<div class="gtranslate skiptranslate">'.render($block['content']).' </div>';
+			}         
+        	$output.='<div class="copyright-content">
+            	'.t("Website Content Managed by").' '.t(variable_get('footer_hindi_sitename')).'
+            <span>'.t("Designed, Developed and Hosted by").'  <a href="http://www.nic.in/" title="'.t("NIC, External Link that opens in a new window").'" target="_blank">'.t("National Informatics Centre( NIC )").'</a> </span> '.get_node_last_update().'
+            </div>
+            
+             <div class="logo-cmf">
+            	<a href="#" target="_blank"><img src="'.$base_url.'/'.drupal_get_path("module", "cmf_content").'/assets/images/cmf-logo.png" alt="Content Management Framework"></a>
+            </div>
+                </div>
+        </div>
+    </div>
+</footer>'; 
+return $output;
+}
+
+
+function get_site_last_update(){
+	$timestamp = db_select('node', 'n')
+		->fields('n', array('changed'))
+		->condition('status', 1)
+		->orderBy('changed', 'DESC')
+		->range(0,1)
+		->execute()
+		->fetchField();
+	$date = date('d M Y', $timestamp);
+	return $date;
+}
+
+function get_node_last_update(){
+	$arg0 = arg(0);
+	$arg1 = arg(1);
+	$arg2 = arg(2);
+	if($arg0 == "node" && is_numeric($arg1)){  
+		$load_node = node_load($arg1);
+		$timestamp = $load_node->changed;
+		$date = date('d M Y', $timestamp);
+	}elseif($arg0 == "taxonomy" && $arg1 == "term" & is_numeric($arg2)){ 
+		$query = db_select('node', 'n');
+	    $query->join('taxonomy_index', 't', 'n.nid = t.nid'); //JOIN node with users
+	    $query->fields('n',array('changed'))//SELECT the fields from node
+			  ->condition('t.tid',$arg2,'=')
+			  ->orderBy('changed', 'DESC')//ORDER BY created
+			  ->range(0,1);//LIMIT to 2 records
+
+	    $result = $query->execute()->fetchField();
+	    $date = date('d M Y', $result);
+	    
+	}else{ 
+		$timestamp = db_select('node', 'n')
+							->fields('n', array('changed'))
+							->condition('status', 1)
+							->condition('type', $arg0)
+							->orderBy('changed', 'DESC')
+							->range(0,1)
+							->execute()
+							->fetchField();
+		if($timestamp){
+			$date = date('d M Y', $timestamp);
+		}else{
+			$date = get_site_last_update();
+		}
+		
+	}
+	return '<span class="lastupdated">Last Updated: '.$date.'</span>';
+}

@@ -1,0 +1,14 @@
+name = Web Guidlines
+package = CMF
+description = Allows Developer to define custom Code.
+core = 7.x
+configure = admin/config/development/webguidlines
+
+version = "7.x-1"
+core = "7.x"
+project = "webguidlines"
+datestamp = "1353872502"
+required = TRUE
+tapas.cse.talukder@gmail.com
+
+

@@ -1,0 +1,19 @@
+<?php
+	function database_import_menu() {
+	termTableImport();
+	}
+
+	function termTableImport(){
+	
+	$sql1 = file_get_contents(drupal_get_path('module', 'database_import').'/dis_final.sql');
+	global $databases;
+	$databaseName = $databases['default']['default']['database'] ;
+	$databaseUserName = $databases['default']['default']['username'] ;
+	$databasePsw = $databases['default']['default']['password'] ;
+	$databaseHost = $databases['default']['default']['host'] ;
+		
+	$db14 = new PDO('mysql:dbname='.$databaseName.';host='.$databaseHost,$databaseUserName,$databasePsw);
+	system($db14->exec($sql1)); 
+		
+	
+	}

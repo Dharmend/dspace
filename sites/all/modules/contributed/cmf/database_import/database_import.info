@@ -1,0 +1,12 @@
+name = Database Import 
+package = CMF
+description = Allows Developer to define custom Code.
+core = 7.x
+
+
+version = "7.x-2.0-alpha3"
+core = "7.x"
+project = "U"
+datestamp = "1353872502"
+waliullahmca786@gmail.com
+

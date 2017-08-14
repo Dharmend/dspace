@@ -1,0 +1,153 @@
+.inner-body-wrapper h1.heading {color:#fff !important;
+.big-img-tab-contents p{ color: #fff !important; }{ color: #fff !important; }
+.big-img-tab-contents h4 {
+    color: #fff;
+}
+.nav-banner-wrapper{ border-bottom:1px solid #fff !important; }
+.common-wrapper{ background: #000 !important; }
+section .region-sidebar-first ul li.active-trail a{ color: #ffff00 !important; }
+section .region-sidebar-first ul li:hover {
+    background: #1a1a1a  none repeat scroll 0 0 !important;
+    line-height: 2.5em;
+}
+.ico-accessibility a{ color: #000 !important; }
+.swatchbharatimg {
+    background: rgba(0, 0, 0, 0) url("../images/swach-bharat-contrast.png") no-repeat scroll 0 0 !important;
+    float: right !important;
+    height: 95px !important;
+    width: 187px !important;
+}
+section .region-sidebar-first ul li.active-trail{   background: #1a1a1a  none repeat scroll 0 0 !important;}
+@media all and (max-width : 940px) {
+#nav li{background:#3B3B3B;}
+.nav-wrapper ul li.open ul li a {background:#454545 !important; color:#ffff00 !important;}
+.nav-wrapper ul li.open ul li:hover a {
+background:#none !important;
+color:#ffff00 !important;
+}
+
+.breadcrumb ol li a{padding: 0 0 0 3px; color: #000;}
+
+ .nav-wrapper ul li a, a.readmore, .body-panel2 ul li span.list-content {
+color:#ffff00 !important;
+}
+
+ .nav-wrapper ul li:hover a {
+background:#none !important;
+color:#ffff00 !important;
+}
+.nav-wrapper ul li.open ul li a{color:#ffff00 !important;}
+}
+
+.whats-new-area{background:#484848;}
+
+.minister-name span,.content-bottom h2,.links-holder h4{color:#fff;}
+.footer-top-wrapper ul li a,
+.interact-area a,
+.document-area ul li a:hover, .top-body-wrapper-right ul li a, .body-panel2 ul li span.list-content{color:#ffff00 !important;}
+.footer-top-wrapper ul li:hover a, .footer-top-wrapper ul li.selected a{color:#fff !important;}
+.document-area ul li,.links-holder ul li{background:url(../images/blt-link.png) no-repeat 0px 3px;}
+
+.header-wrapper, .whats-new-panel{border-bottom:1px solid #333;}
+a.readmore, .body-panel2-wrapper, .body-panel3-wrapper{border:1px solid #333;}
+.whats-new-panel, a.readmore, .content-image, .top-body-wrapper-right, .body-panel2-wrapper, .body-panel3-wrapper, .content-download, .carousel-wrapper{background:#000; color:#FFF;}
+.whats-new-text-cont, .panel-3 h3, .news-list li span, .body-panel2 h3, .top-body-wrapper-right h5{color:#FFF;}
+body{background: #000 none repeat scroll 0 0;}
+.big-img-tab-contents p{color:#fff;}
+.bg-grey {
+    background: #333333 none repeat scroll 0 0;
+   /* border-bottom: 1px solid #fff;*/
+}
+.body-container #content a {
+    color: #ffff00;
+}
+body{color:#fff;}
+body .region-header-top {color: #3d3d3d;}
+.link-icons .link-icon:hover .ico-text{color: #ffff00;}
+.link-icons .link-icon .ico-text {
+    color: #ffff00;
+    float: left;
+    font-size: 130%;
+    font-weight: 400;
+    padding-bottom: 7px;
+    padding-left: 52px;
+    padding-top: 11px;
+    vertical-align: middle;
+}
+.nav-wrapper {
+    background: #333333 none repeat scroll 0 0;
+    border-bottom: 1px solid #3b3b3b;
+}
+
+.nav-wrapper ul li:hover a, .nav-wrapper ul li.hover a, .nav-wrapper ul li.active a {
+  background: #333333;
+}
+
+
+.content{color:#fff;}
+.url {
+    color: #fff000;
+    font-size: 12px;
+    font-weight: normal;
+}
+.inner-body-wrapper h2.heading{color:#fff;}
+.left-mid-bg{ background: #000 none repeat scroll 0 0;}
+.mid-container{ background: #000 none repeat scroll 0 0;}
+
+.result-page-form #auto_suggesion ul {
+    background: #000 none repeat scroll 0 0;
+    border: 1px solid #ccc;
+}
+.title{color:#fff;}
+.logo {
+    background: rgba(0, 0, 0, 0) url("../images/emblem-light.png") no-repeat scroll 3px 0;
+    float: left;
+    font-size: 160%;
+    line-height: 105%;
+    min-height: 103px;
+    padding: 11px 0 0 71px;
+    text-transform: uppercase;
+}
+.link-icons .link-icon:hover{background-position:inherit !important;}
+.common-right ul li.ico-skip a {
+    background: rgba(0, 0, 0, 0) url("../images/ico-skip-y.png") no-repeat scroll 0 0;
+}
+.common-right ul li.ico-accessibility a {
+    background: rgba(0, 0, 0, 0) url("../images/ico-accessibility-y.png") no-repeat scroll 0 0;
+}
+.common-right ul li.ico-social a {
+    background: rgba(0, 0, 0, 0) url("../images/ico-social-y.png") no-repeat scroll 0 0;
+}
+.common-right ul li.ico-site-search a {
+    background: rgba(0, 0, 0, 0) url("../images/ico-site-search-y.png") no-repeat scroll 0 0;
+}
+.common-right ul li.ico-sitemap a {
+    background: rgba(0, 0, 0, 0) url("../images/ico-sitemap-y.png") no-repeat scroll 0 0;
+}
+.common-right ul li a{color: #ffff00;}
+.body-container #content .view-acts .view-header p a{color: #fff000; font-weight:bold;}
+.common-right ul li.ico-accessibility ul li a {
+    background: #000 none repeat scroll 0 0;
+    color: #fff000;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin-top: 9px;
+    text-align: center;
+    width: 22px;
+}
+.region-header-top .common-right ul#header-nav .high-contrast.light{background:#fff; color:#000;}
+
+section .region-sidebar-first ul li a { font-weight:bold; color:#fff000;background:url("../images/blue-arrow.png") center left;  background-repeat:no-repeat; padding-left:15px;}
+section .region-sidebar-first ul li.active-trail a {text-decoration:none; color:#ffff00; background:url("../images/blue-arrow-hover.png") center left;background-repeat:no-repeat; padding-left:15px;}
+section .region-sidebar-first ul li.active-trail { background: #1d5a96 none repeat scroll 0 0; }
+
+#block-menu-menu-left-menu { background-color:#000000;
+    margin-right: 15px;
+}
+
+section .region-sidebar-first ul li:hover { line-height:2.5em; background: #1d5a96;}
+section .region-sidebar-first ul li a:hover { text-decoration:none; color:#ffff00; list-style-image:url("../images/blue-arrow-hover.png") ; }
+
+
+

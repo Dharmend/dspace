@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the image gallery feature.
+ */
+
+include_once 'image_gallery.features.inc';

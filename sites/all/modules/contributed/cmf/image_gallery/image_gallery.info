@@ -1,0 +1,17 @@
+name = image gallery
+description = test image gallery
+core = 7.x
+package = Custom
+version = 7.x-1.0
+dependencies[] = features
+dependencies[] = image
+dependencies[] = options
+dependencies[] = taxonomy
+features[features_api][] = api:2
+features[field_base][] = field_image
+features[field_base][] = field_select_type
+features[field_instance][] = node-image-field_image
+features[field_instance][] = node-image-field_select_type
+features[node][] = image
+features[taxonomy][] = gallery
+project path = sites/all/modules/custom

@@ -1,0 +1,4 @@
+name = Logout confirm
+description = To confirm logging out of user.
+package = OGPL Custom
+core = 7.x
